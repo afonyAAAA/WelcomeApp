@@ -23,31 +23,31 @@ class OnboardingViewModel(
                 OnboardingScreenType.Gender,
                 OnboardingScreenType.Video(
                     context.getString(R.string.try_all_the_processing_options),
-                    rawResUri(context, R.raw.video)
+                    rawResUri(context, R.raw.video1)
                 ),
                 OnboardingScreenType.Video(
                     context.getString(R.string.lots_of_templates_for_ideas),
-                    rawResUri(context, R.raw.vid2)
+                    rawResUri(context, R.raw.video2)
                 ),
                 OnboardingScreenType.Video(
                     context.getString(R.string.make_your_dreams_come_true),
-                    rawResUri(context, R.raw.video)
+                    rawResUri(context, R.raw.video3)
                 ),
                 OnboardingScreenType.Video(
                     context.getString(R.string.make_your_dreams_come_true),
-                    rawResUri(context, R.raw.video)
+                    rawResUri(context, R.raw.video4)
                 ),
                 OnboardingScreenType.Video(
                     context.getString(R.string.make_your_dreams_come_true),
-                    rawResUri(context, R.raw.video)
+                    rawResUri(context, R.raw.video4)
                 ),
                 OnboardingScreenType.Video(
                     context.getString(R.string.make_your_dreams_come_true),
-                    rawResUri(context, R.raw.video)
+                    rawResUri(context, R.raw.video4)
                 ),
                 OnboardingScreenType.Video(
                     context.getString(R.string.make_your_dreams_come_true),
-                    rawResUri(context, R.raw.video)
+                    rawResUri(context, R.raw.video4)
                 )
             )
         )
