@@ -9,11 +9,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -25,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -40,17 +44,22 @@ import ru.afonya.welcomeapp.ui.state.OnboardingScreenState
 import ru.afonya.welcomeapp.ui.theme.BlackPrimary
 import ru.afonya.welcomeapp.ui.utils.Constants
 import ru.afonya.welcomeapp.ui.utils.LocalInnerPadding
+import ru.afonya.welcomeapp.ui.utils.dropShadow
 
 @Composable
 fun OnboardingComponent(
     content: OnboardingScreenType,
-    rowIndicatorHeightPx: Int,
     isCurrent: Boolean,
     state: OnboardingScreenState,
     onNextClick: () -> Unit,
     onEvent: (OnboardingScreenEvent) -> Unit,
 ) {
     val backgroundPainter = painterResource(R.drawable.background_onboarding)
+
+    val bottomPaddingButton = when(content) {
+        OnboardingScreenType.Gender -> 16.dp
+        is OnboardingScreenType.Video -> 2.dp
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         when (content) {
@@ -74,13 +83,13 @@ fun OnboardingComponent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = rowIndicatorHeightPx.dp)
         ) {
             when (content) {
                 OnboardingScreenType.Gender -> {
                     GenderSelection(
                         modifier = Modifier
                             .weight(1f)
+                            .padding(bottom = 16.dp)
                             .fillMaxSize(),
                         state.selectedGender
                     ) { gender ->
@@ -104,9 +113,10 @@ fun OnboardingComponent(
                 onClick = onNextClick,
                 enabled = state.selectedGender.isNotEmpty(),
                 modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 2.dp)
+                    .padding(start = 16.dp, end = 16.dp, bottom = bottomPaddingButton)
                     .fillMaxWidth()
             )
+            Spacer(Modifier.height(45.dp))
         }
     }
 }
@@ -120,12 +130,12 @@ fun GenderSelection(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = LocalInnerPadding.current.calculateTopPadding())
+            .padding(top = LocalInnerPadding.current.calculateTopPadding() + 9.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -193,37 +203,37 @@ private fun RowScope.GenderPhoto(
         modifier = Modifier
             .weight(1f)
             .fillMaxHeight()
-            .clip(shape)
-            .shadow(
-                elevation = 48.dp,
-                ambientColor = Color(0xFF905CFF).copy(alpha = 0.2f),
-                spotColor = Color(0xFF905CFF).copy(alpha = 0.2f),
-                clip = false
-            )
-            .background(Color.LightGray)
-            .clickable {
-                if (isSelected)
-                    return@clickable
 
-                isSelected = !isSelected
-
-                onChooseGender(gender)
-            }
     ) {
-        Image(
-            painter = painterResource(image),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.matchParentSize()
-        )
-        GenderLabel(
+        // Вложенный Box с clip и background
+        Box(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 16.dp),
-            text = textLabel,
-            gender,
-            selectedGender
-        )
+                .fillMaxSize()
+                .dropShadow(shape, Color(0xFF905CFF).copy(alpha = 0.8f), offsetX = 0.dp, offsetY = 1.dp, blur = 8.dp)
+                .dropShadow(shape, Color(0xFF905CFF).copy(alpha = 0.2f), offsetX = 0.dp, offsetY = 1.dp, blur = 48.dp)
+                .clip(shape)
+                .background(Color.LightGray)
+                .clickable {
+                    if (isSelected) return@clickable
+                    isSelected = !isSelected
+                    onChooseGender(gender)
+                }
+        ) {
+            Image(
+                painter = painterResource(image),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.matchParentSize()
+            )
+            GenderLabel(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 16.dp),
+                text = textLabel,
+                gender,
+                selectedGender
+            )
+        }
     }
 }
 
@@ -234,25 +244,21 @@ private fun GenderLabel(
     gender: String,
     selectedGender: String
 ) {
+    val icon = if (selectedGender == gender) {
+        R.drawable.checkbox_activated
+    } else {
+        R.drawable.checkbox_disabled
+    }
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp)
+            .padding(horizontal = 6.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(Color(0x66000000))
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(
-                enabled = false,
-                selected = selectedGender == gender,
-                onClick = {},
-                colors = RadioButtonDefaults.colors(
-                    unselectedColor = Color.White.copy(alpha = 0.28f),
-                    selectedColor = Color.White,
-                    disabledSelectedColor = Color.White,
-                    disabledUnselectedColor = Color.White.copy(alpha = 0.28f)
-                )
-            )
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+            Spacer(Modifier.width(16.dp))
+            Icon(painterResource(icon), "", modifier = Modifier.padding(vertical = 6.dp), tint = Color.White)
             CommonText(text, style = MaterialTheme.typography.labelMedium)
         }
     }

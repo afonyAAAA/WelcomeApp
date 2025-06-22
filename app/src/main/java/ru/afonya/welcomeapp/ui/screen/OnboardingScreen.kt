@@ -56,8 +56,6 @@ fun OnboardingPager(state: OnboardingScreenState, onEvent: (OnboardingScreenEven
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState { items.size }
 
-    var rowIndicatorHeightPx by remember { mutableIntStateOf(0) }
-
     Box(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
             userScrollEnabled = state.selectedGender.isNotEmpty(),
@@ -71,7 +69,6 @@ fun OnboardingPager(state: OnboardingScreenState, onEvent: (OnboardingScreenEven
                     onNextClick = {
                         scope.launch { pagerState.animateScrollToPage(page + 1) }
                     },
-                    rowIndicatorHeightPx = rowIndicatorHeightPx,
                     isCurrent = pagerState.currentPage == page,
                     state = state,
                     onEvent = onEvent
@@ -81,10 +78,10 @@ fun OnboardingPager(state: OnboardingScreenState, onEvent: (OnboardingScreenEven
 
         PagerIndicator(
             pagerState = pagerState,
-            onGetHeightIndicator = { rowIndicatorHeightPx = it },
             modifier = Modifier
+                .size(360.dp, 45.dp)
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 10.dp)
+                .padding()
         )
     }
 }
@@ -92,15 +89,10 @@ fun OnboardingPager(state: OnboardingScreenState, onEvent: (OnboardingScreenEven
 @Composable
 fun PagerIndicator(
     pagerState: PagerState,
-    onGetHeightIndicator: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .wrapContentHeight()
-            .onGloballyPositioned {
-                onGetHeightIndicator(it.size.height)
-            },
+        modifier = modifier,
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -114,7 +106,7 @@ fun PagerIndicator(
             val targetScale = when {
                 index == currentPage -> 1f
                 isLast && (currentPage >= pageCount - 3) -> 1f
-                isLast -> 0.5f
+                isLast -> 0.7f
                 else -> 1f
             }
 
