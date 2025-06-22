@@ -1,4 +1,4 @@
-package ru.afonya.test.event
+package ru.afonya.welcomeapp.ui.event
 
 sealed class OnboardingScreenEvent {
     data class SelectGender(val gender: String) : OnboardingScreenEvent()

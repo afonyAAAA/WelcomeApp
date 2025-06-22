@@ -1,4 +1,4 @@
-package ru.afonya.test.ui.components
+package ru.afonya.welcomeapp.ui.components
 
 import android.net.Uri
 import androidx.annotation.OptIn
@@ -16,6 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.compose.PlayerSurface
@@ -25,9 +28,9 @@ import kotlinx.coroutines.delay
 @OptIn(UnstableApi::class)
 @Composable
 fun Player(
-    contentUrl: Uri,
-    volume: Float = 1f,
     modifier: Modifier = Modifier,
+    contentUrl: Uri,
+    volume: Float = 0f,
     foregroundGradient: Brush? = null,
     isVisible: Boolean = false
 ) {
@@ -36,6 +39,7 @@ fun Player(
         if (isVisible) ExoPlayer.Builder(context).build() else null
     }
     val showOverlay = remember { mutableStateOf(true) }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     val overlayAlpha by animateFloatAsState(
         targetValue = if (showOverlay.value) 1f else 0f,
@@ -88,8 +92,30 @@ fun Player(
         }
     }
 
-    DisposableEffect(player) {
+    DisposableEffect(lifecycleOwner, player) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (player != null) {
+                when (event) {
+                    Lifecycle.Event.ON_STOP,
+                    Lifecycle.Event.ON_PAUSE -> {
+                        player.pause()
+                    }
+                    Lifecycle.Event.ON_RESUME -> {
+                        if (isVisible) {
+                            if (player.playbackState == ExoPlayer.STATE_ENDED) player.seekTo(0)
+                            player.playWhenReady = true
+                        }
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        val lifecycle = lifecycleOwner.lifecycle
+        lifecycle.addObserver(observer)
+
         onDispose {
+            lifecycle.removeObserver(observer)
             player?.release()
         }
     }

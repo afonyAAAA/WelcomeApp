@@ -1,11 +1,11 @@
-package ru.afonya.test.ui.di
+package ru.afonya.welcomeapp.ui.di
 
 import android.content.Context
 import android.content.SharedPreferences
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
-import ru.afonya.test.ui.viewModel.OnboardingViewModel
+import ru.afonya.welcomeapp.ui.viewModel.OnboardingViewModel
 
 val appModule = module {
     single<SharedPreferences> {

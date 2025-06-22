@@ -1,4 +1,4 @@
-package ru.afonya.test.ui.screen
+package ru.afonya.welcomeapp.ui.screen
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -30,10 +30,10 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import ru.afonya.test.event.OnboardingScreenEvent
-import ru.afonya.test.ui.components.OnboardingComponent
-import ru.afonya.test.ui.state.OnboardingScreenState
-import ru.afonya.test.ui.viewModel.OnboardingViewModel
+import ru.afonya.welcomeapp.ui.components.OnboardingComponent
+import ru.afonya.welcomeapp.ui.event.OnboardingScreenEvent
+import ru.afonya.welcomeapp.ui.state.OnboardingScreenState
+import ru.afonya.welcomeapp.ui.viewModel.OnboardingViewModel
 
 @Composable
 fun OnboardingScreen(viewModel: OnboardingViewModel = koinViewModel()) {
@@ -60,6 +60,7 @@ fun OnboardingPager(state: OnboardingScreenState, onEvent: (OnboardingScreenEven
 
     Box(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
+            userScrollEnabled = state.selectedGender.isNotEmpty(),
             state = pagerState,
             modifier = Modifier.fillMaxSize()
         ) { page ->

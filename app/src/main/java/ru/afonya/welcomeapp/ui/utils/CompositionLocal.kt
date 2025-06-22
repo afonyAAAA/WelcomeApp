@@ -1,4 +1,4 @@
-package ru.afonya.test.ui.utils
+package ru.afonya.welcomeapp.ui.utils
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable

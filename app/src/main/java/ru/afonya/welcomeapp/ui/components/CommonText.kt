@@ -1,4 +1,4 @@
-package ru.afonya.test.ui.components
+package ru.afonya.welcomeapp.ui.components
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

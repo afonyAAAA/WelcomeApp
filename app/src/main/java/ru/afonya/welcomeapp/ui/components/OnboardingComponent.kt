@@ -1,7 +1,6 @@
-package ru.afonya.test.ui.components
+package ru.afonya.welcomeapp.ui.components
 
 import android.net.Uri
-import androidx.annotation.OptIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,14 +33,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.media3.common.util.UnstableApi
-import ru.afonya.test.R
-import ru.afonya.test.event.OnboardingScreenEvent
-import ru.afonya.test.ui.models.OnboardingScreenType
-import ru.afonya.test.ui.state.OnboardingScreenState
-import ru.afonya.test.ui.theme.BlackPrimary
-import ru.afonya.test.ui.utils.Constants
-import ru.afonya.test.ui.utils.LocalInnerPadding
+import ru.afonya.welcomeapp.R
+import ru.afonya.welcomeapp.ui.event.OnboardingScreenEvent
+import ru.afonya.welcomeapp.ui.models.OnboardingScreenType
+import ru.afonya.welcomeapp.ui.state.OnboardingScreenState
+import ru.afonya.welcomeapp.ui.theme.BlackPrimary
+import ru.afonya.welcomeapp.ui.utils.Constants
+import ru.afonya.welcomeapp.ui.utils.LocalInnerPadding
 
 @Composable
 fun OnboardingComponent(
@@ -260,7 +258,6 @@ private fun GenderLabel(
     }
 }
 
-@OptIn(UnstableApi::class)
 @Composable
 fun OnboardingVideo(
     title: String,
@@ -277,7 +274,7 @@ fun OnboardingVideo(
         val gradient = Brush.verticalGradient(
             colorStops = arrayOf(
                 0.0f to Color.Transparent,
-                1.0f to BlackPrimary.copy(alpha = 0.99f)
+                1.0f to BlackPrimary
             )
         )
 

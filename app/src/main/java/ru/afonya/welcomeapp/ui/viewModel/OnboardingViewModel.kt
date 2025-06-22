@@ -1,16 +1,15 @@
-package ru.afonya.test.ui.viewModel
+package ru.afonya.welcomeapp.ui.viewModel
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import androidx.media3.common.util.UnstableApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import ru.afonya.test.R
-import ru.afonya.test.event.OnboardingScreenEvent
-import ru.afonya.test.ui.models.OnboardingScreenType
-import ru.afonya.test.ui.state.OnboardingScreenState
-import ru.afonya.test.ui.utils.Constants
-import ru.afonya.test.ui.utils.rawResUri
+import ru.afonya.welcomeapp.R
+import ru.afonya.welcomeapp.ui.event.OnboardingScreenEvent
+import ru.afonya.welcomeapp.ui.models.OnboardingScreenType
+import ru.afonya.welcomeapp.ui.state.OnboardingScreenState
+import ru.afonya.welcomeapp.ui.utils.Constants
+import ru.afonya.welcomeapp.ui.utils.rawResUri
 
 class OnboardingViewModel(
     private val context: Context,

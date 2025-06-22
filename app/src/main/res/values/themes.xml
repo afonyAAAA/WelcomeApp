@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.WelcomeApp" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.WelcomeApp" parent="android:Theme.Material.NoActionBar" />
+
+    <style name="Theme.WelcomeApp.Splash" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/background_primary</item>
+        <item name="postSplashScreenTheme">@style/Theme.WelcomeApp</item>
+    </style>
+
 </resources>

@@ -1,4 +1,4 @@
-package ru.afonya.test.ui.viewModel
+package ru.afonya.welcomeapp.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

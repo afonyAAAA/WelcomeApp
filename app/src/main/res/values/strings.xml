@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WelcomeApp</string>
+    <string name="try_all_the_processing_options">Try all the processing options</string>
+    <string name="lots_of_templates_for_ideas">Lots of templates for ideas</string>
+    <string name="make_your_dreams_come_true">Make your dreams come true</string>
+    <string name="next">Next</string>
+    <string name="select_your_avatar_s_gender">Select your avatar\'s gender</string>
+    <string name="this_will_help_you_make_your_personalized_avatar">This will help you make your\npersonalized avatar</string>
+    <string name="woman">Woman</string>
+    <string name="man">Man</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.afonya.test.ui.models
+package ru.afonya.welcomeapp.ui.models
 
 import android.net.Uri
 

@@ -1,4 +1,4 @@
-package ru.afonya.test.ui.components
+package ru.afonya.welcomeapp.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.afonya.test.R
-import ru.afonya.test.ui.theme.TestAppTheme
+import ru.afonya.welcomeapp.R
+import ru.afonya.welcomeapp.ui.theme.WelcomeAppTheme
 
 
 @Composable
@@ -72,7 +72,7 @@ fun CommonButton(
 @Preview
 @Composable
 fun PreviewButton() {
-    TestAppTheme {
+    WelcomeAppTheme {
         CommonButton(stringResource(R.string.next), true) { }
     }
 }
